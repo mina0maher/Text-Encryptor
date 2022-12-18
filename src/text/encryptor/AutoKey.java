@@ -13,137 +13,153 @@ package text.encryptor;
 
 public final class AutoKey {
 
-    public static String encrypt(String plainText,String keyword) {
-        // TODO Auto-generated method stub
-
-            
-            int len = plainText.length(), asciiValue, newValue, letterValue, x = 0, counter = 0, nexti = 0;
-            String ciphertext = new String();
-            char current;
-            plainText = plainText.toUpperCase(); //it makes it easier to have it all in one case
-            keyword = keyword.toUpperCase();
-
-            for (int i = 0; i < keyword.length(); i++)
-            {
-                current = plainText.charAt(i);
-                if (Character.isSpace(current))
-                {
-                    ciphertext += ' ';
-                    i++;
-                    current = plainText.charAt(i);
-                }
-
-                asciiValue = ((int)current);
-                //if it's an uppercase letter, encode it
-                if (asciiValue >= 65 && asciiValue <= 90)
-                {
-                    letterValue = asciiValue - 65;
-                    newValue = letterValue + (((int)(keyword.charAt(counter))) - 65);
-                    newValue %= 26;
-                    ciphertext += (char)(newValue + 65);//add it to the ciphertext
-                    counter++;
-                }
-                nexti = i;
+    public static String encrypt(String plainText,String key) {
+            int len = plainText.length();
+            plainText = plainText.toUpperCase();
+            key = key.toUpperCase();
+            String newKey = key.concat(plainText);
+            newKey = newKey.substring(0, newKey.length() - key.length());
+            String encryptMsg = "";
+            for (int x = 0; x < len; x++) {
+                int first = getIndex(plainText.charAt(x));
+                int second = getIndex(newKey.charAt(x));
+                int total = (first + second) % 26;
+                encryptMsg += getAlphabet(total);
             }
-
-            x = 0;
-            for (int i = nexti + 1; i < len; i++)
-            {
-                char temp = ' ';
-                current = plainText.charAt(i);
-                if (Character.isSpace(current))
-                {
-                    ciphertext += ' ';
-                    i++;
-                    current = plainText.charAt(i);
-                }
-
-                asciiValue = ((int)current);
-                //if it's an uppercase letter, encode it
-                if (asciiValue >= 65 && asciiValue <= 90)
-                {
-                    letterValue = asciiValue - 65;
-                    temp = ciphertext.charAt(x);
-                    while (temp == ' ')
-                    {
-                        x++;
-                        temp = ciphertext.charAt(x);
-                    }
-
-                    newValue = letterValue + (((int)(temp)) - 65);//add the shift
-
-                    newValue %= 26;
-                    ciphertext += (char)(newValue + 65);//add it to the ciphertext
-                    x++;
-                }
-
-                temp = ' ';
-            }
-            return ciphertext;
+            return encryptMsg;
 
         }
 
 
-    public static String decrypt(String ciphertext,String keyy) {
-
-        int x = 0, len = ciphertext.length(), asciiValue, newValue, letterValue, y = 0;
-        String plaintext = new String();
-        char current, temp = ' ';
-        ciphertext = ciphertext.toLowerCase();//it makes it easier to have it all in one case
-        int keywordLength = keyy.length();
-
-        for (int i = 0; i < keywordLength; i++)
-        {
-            if (x < ciphertext.length())
-            {
-                plaintext += ciphertext.charAt(x);
-                x++;
-
-                if (Character.isSpace(ciphertext.charAt(x - 1)))
-                {
-                    plaintext += ciphertext.charAt(x);
-                    x++;
-                }
-                y = x;
-            }
+    public static String decrypt(String cipherText,String key) {
+        cipherText = cipherText.toUpperCase();
+        String currentKey = key.toUpperCase();
+        String decryptMsg = "";
+         for (int x = 0; x < cipherText.length(); x++) {
+            int get1 = getIndex(cipherText.charAt(x));
+            int get2 = getIndex(currentKey.charAt(x));
+            int total = (get1 - get2) % 26;
+            total = (total < 0) ? total + 26 : total;
+            decryptMsg += getAlphabet(total);
+            currentKey += getAlphabet(total);
         }
-
-        x = 0;
-        for (int i = 0; i < (len - y); i++)
-        {
-
-            current = ciphertext.charAt(i + y);
-            if (Character.isSpace(current))
-                plaintext += ' ';
-
-
-            else
-            {
-                asciiValue = ((int)current);
-                if (asciiValue >= 97 && asciiValue <= 122)
-                {
-                    letterValue = asciiValue - 97;
-
-                    temp = ciphertext.charAt(x);
-                    while (temp == ' ')
-                    {
-                        x++;
-                        temp = ciphertext.charAt(x);
-                    }
-
-                    newValue = letterValue - (((int)(temp)) - 97); //take off the shift
-                    newValue %= 26;
-                    //if we've gone below 0, we add 26, which has the effect of wrapping around to the end of the alphabet
-                    if (newValue < 0)
-                        newValue += 26;
-
-                    plaintext += (char)(newValue + 97);//add it to the plaintext
-                    x++;
-                }
-            }
-            temp = ' ';
+        return decryptMsg;
+    }
+    
+    private static int getIndex(char alphabet){
+        switch(alphabet){
+            case 'A':
+                return 0;
+            case 'B':
+                return 1;
+            case 'C':
+                return 2;
+            case 'D':
+                return 3;
+            case 'E':
+                return 4;
+            case 'F':
+                return 5;
+            case 'G':
+                return 6;
+            case 'H':
+                return 7;
+            case 'I':
+                return 8;
+            case 'J':
+                return 9;
+            case 'K':
+                return 10;
+            case 'L':
+                return 11;
+            case 'M':
+                return 12;
+            case 'N':
+                return 13;
+            case 'O':
+                return 14;
+            case 'P':
+                return 15;
+            case 'Q':
+                return 16;
+            case 'R':
+                return 17;
+            case 'S':
+                return 18;
+            case 'T':
+                return 19;
+            case 'U':
+                return 20;
+            case 'V':
+                return 21;
+            case 'W':
+                return 22;
+            case 'X':
+                return 23;
+            case 'Y':
+                return 24;
+            case 'Z':
+                return 25;
         }
-        return plaintext;
+        return -1;
+    }
+    
+    private static char  getAlphabet(int index){
+        switch(index){
+            case 0:
+                return 'A';
+            case 1:
+                return 'B';
+            case 2:
+                 return 'C';   
+            case 3:
+                 return 'D';
+            case 4:
+                 return 'E';
+            case 5:
+                return 'F';
+                case 6:
+                return 'G';
+            case 7:
+                 return 'H';   
+            case 8:
+                 return 'I';
+            case 9:
+                 return 'J';
+            case 10:
+                return 'K';
+                case 11:
+                return 'L';
+            case 12:
+                 return 'M';   
+            case 13:
+                 return 'N';
+            case 14:
+                 return 'O';
+            case 15:
+                return 'P';
+                case 16:
+                return 'Q';
+            case 17:
+                 return 'R';   
+            case 18:
+                 return 'S';
+            case 19:
+                 return 'T';
+            case 20:
+                return 'U';
+                case 21:
+                return 'V';
+            case 22:
+                 return 'W';   
+            case 23:
+                 return 'X';
+            case 24:
+                 return 'Y';
+            case 25:
+                return 'Z';
+        }
+        return ' ';
     }
 
 
