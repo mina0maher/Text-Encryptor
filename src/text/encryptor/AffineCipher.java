@@ -29,16 +29,7 @@ public class AffineCipher {
      
      
      
-    public static int gcd(int a, int b)
-    {
-        
-        if (a == 0)
-            return b;
-        else
-            return gcd(b % a, a);
-    
-    }
- 
+
  
     public static String decrypt(String cipher,int m,int k)
     {

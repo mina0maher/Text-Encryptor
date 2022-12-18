@@ -8,7 +8,9 @@ package text.encryptor.ui;
 import javax.swing.JOptionPane;
 import text.encryptor.AffineCipher;
 import text.encryptor.AutoKey;
+import text.encryptor.RSA;
 import text.encryptor.ui.controls.JTextBox;
+import static text.encryptor.utilities.Utilities.gcd;
 
 /**
  *
@@ -57,6 +59,28 @@ public class MainPage extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         affineKEncrypt = new JTextBox(30);
         jPanel2 = new javax.swing.JPanel();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        RSACipher = new JTextBox(30);
+        RSADecryptButton = new text.encryptor.ui.controls.JButtonBox();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        RSADecryptResult = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        RSAPDecrypt = new JTextBox(30);
+        jLabel16 = new javax.swing.JLabel();
+        RSAQDecrypt = new JTextBox(30);
+        jPanel15 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        RSAPlainText = new JTextBox(30);
+        jLabel18 = new javax.swing.JLabel();
+        RSAPEncrypt = new JTextBox(30);
+        RSAEncryptButton = new text.encryptor.ui.controls.JButtonBox();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        RSAEncryptResult = new javax.swing.JTextArea();
+        jLabel19 = new javax.swing.JLabel();
+        RSAQEncrypt = new JTextBox(30);
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
@@ -275,15 +299,198 @@ public class MainPage extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("AFFINE CIPHER", jPanel1);
 
+        jLabel9.setText("Enter cipher text :");
+
+        RSACipher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSACipherActionPerformed(evt);
+            }
+        });
+
+        RSADecryptButton.setText("Decrypt");
+        RSADecryptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSADecryptButtonActionPerformed(evt);
+            }
+        });
+
+        RSADecryptResult.setEditable(false);
+        RSADecryptResult.setColumns(20);
+        RSADecryptResult.setRows(5);
+        jScrollPane5.setViewportView(RSADecryptResult);
+
+        jLabel15.setText("Enter P :");
+
+        RSAPDecrypt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSAPDecryptActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Enter Q :");
+
+        RSAQDecrypt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSAQDecryptActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(RSACipher))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RSADecryptButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(18, 18, 18)
+                                .addComponent(RSAPDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(RSAQDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(RSACipher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(RSAPDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(RSAQDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addComponent(RSADecryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jTabbedPane4.addTab("decrypt", jPanel13);
+
+        jLabel17.setText("Enter plain text :");
+
+        RSAPlainText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSAPlainTextActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Enter P :");
+
+        RSAPEncrypt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSAPEncryptActionPerformed(evt);
+            }
+        });
+
+        RSAEncryptButton.setText("Encrypt");
+        RSAEncryptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSAEncryptButtonActionPerformed(evt);
+            }
+        });
+
+        RSAEncryptResult.setEditable(false);
+        RSAEncryptResult.setColumns(20);
+        RSAEncryptResult.setRows(5);
+        jScrollPane6.setViewportView(RSAEncryptResult);
+
+        jLabel19.setText("Enter Q :");
+
+        RSAQEncrypt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RSAQEncryptActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(RSAEncryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RSAPlainText)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(RSAPEncrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel19)
+                                .addGap(18, 18, 18)
+                                .addComponent(RSAQEncrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(RSAPlainText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel19)
+                        .addComponent(RSAQEncrypt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel18)
+                        .addComponent(RSAPEncrypt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36)
+                .addComponent(RSAEncryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jTabbedPane4.addTab("encrypt", jPanel15);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jTabbedPane1.addTab("RSA", jPanel2);
@@ -525,7 +732,7 @@ public class MainPage extends javax.swing.JFrame {
              if(cipher.isEmpty()||m.isEmpty()||k.isEmpty()){
                     JOptionPane.showMessageDialog(null, "plain text & K & M cannot be null");
                     affineDecryptResult.setVisible(false);
-             }else if(AffineCipher.gcd(26,M)!=1){
+             }else if(gcd(26,M)!=1){
                     JOptionPane.showMessageDialog(null, "gcd (N,M) != 1");
                     affineDecryptResult.setVisible(false);
              }else if(!cipher.isEmpty()&&!m.isEmpty()&&!k.isEmpty()){
@@ -559,7 +766,7 @@ public class MainPage extends javax.swing.JFrame {
              if(plainText.isEmpty()||m.isEmpty()||k.isEmpty()){
                     JOptionPane.showMessageDialog(null, "plain text & K & M cannot be null");
                     affineEncryptResult.setVisible(false);
-             }else if(AffineCipher.gcd(26,M)!=1){
+             }else if(gcd(26,M)!=1){
                     JOptionPane.showMessageDialog(null, "gcd (N,M) != 1");
                     affineEncryptResult.setVisible(false);
              }else if(!plainText.isEmpty()&&!m.isEmpty()&&!k.isEmpty()){
@@ -602,6 +809,73 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_affineKDecryptActionPerformed
 
+    private void RSACipherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSACipherActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RSACipherActionPerformed
+
+    private void RSADecryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSADecryptButtonActionPerformed
+        String cipherText = RSACipher.getText();
+        String p= RSAPDecrypt.getText();
+        String q = RSAQDecrypt.getText();
+        if(isNumeric(p)&&isNumeric(q)){
+             int P = Integer.parseInt(p);
+             int Q = Integer.parseInt(q);
+             if(cipherText.isEmpty()||p.isEmpty()||q.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "plain text & P & Q cannot be null");
+                    RSADecryptResult.setVisible(false);
+             }else if(!cipherText.isEmpty()&&!p.isEmpty()&&!q.isEmpty()){
+                  RSADecryptResult.setVisible(true);
+                  String result = RSA.decrypt(cipherText,P,Q);
+                  RSADecryptResult.setText(result);
+             }
+        }else{
+            JOptionPane.showMessageDialog(null, "P & Q must be numeric");
+            RSADecryptResult.setVisible(false);
+        }
+    }//GEN-LAST:event_RSADecryptButtonActionPerformed
+
+    private void RSAPDecryptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSAPDecryptActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RSAPDecryptActionPerformed
+
+    private void RSAQDecryptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSAQDecryptActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RSAQDecryptActionPerformed
+
+    private void RSAPlainTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSAPlainTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RSAPlainTextActionPerformed
+
+    private void RSAPEncryptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSAPEncryptActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RSAPEncryptActionPerformed
+
+    private void RSAEncryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSAEncryptButtonActionPerformed
+        String plainText = RSAPlainText.getText();
+        String p= RSAPEncrypt.getText();
+        String q = RSAQEncrypt.getText();
+        if(isNumeric(p)&&isNumeric(q)){
+             int P = Integer.parseInt(p);
+             int Q = Integer.parseInt(q);
+             if(plainText.isEmpty()||p.isEmpty()||q.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "plain text & P & Q cannot be null");
+                    RSAEncryptResult.setVisible(false);
+             }else if(!plainText.isEmpty()&&!p.isEmpty()&&!q.isEmpty()){
+                  RSAEncryptResult.setVisible(true);
+                  String result = RSA.encrypt(plainText.toUpperCase(),P,Q);
+                  RSAEncryptResult.setText(result);
+             }
+        }else{
+            JOptionPane.showMessageDialog(null, "P & Q must be numeric");
+            RSAEncryptResult.setVisible(false);
+        }
+
+    }//GEN-LAST:event_RSAEncryptButtonActionPerformed
+
+    private void RSAQEncryptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSAQEncryptActionPerformed
+        
+    }//GEN-LAST:event_RSAQEncryptActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -635,6 +909,16 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField RSACipher;
+    private text.encryptor.ui.controls.JButtonBox RSADecryptButton;
+    private javax.swing.JTextArea RSADecryptResult;
+    private text.encryptor.ui.controls.JButtonBox RSAEncryptButton;
+    private javax.swing.JTextArea RSAEncryptResult;
+    private javax.swing.JTextField RSAPDecrypt;
+    private javax.swing.JTextField RSAPEncrypt;
+    private javax.swing.JTextField RSAPlainText;
+    private javax.swing.JTextField RSAQDecrypt;
+    private javax.swing.JTextField RSAQEncrypt;
     private javax.swing.JTextField affineCipher;
     private text.encryptor.ui.controls.JButtonBox affineDecryptButton;
     private javax.swing.JTextArea affineDecryptResult;
@@ -659,14 +943,23 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -676,8 +969,11 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     // End of variables declaration//GEN-END:variables
 }
