@@ -103,6 +103,18 @@ public class MainPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
+        jTabbedPane3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane3MouseClicked(evt);
+            }
+        });
+
         jLabel8.setText("Enter cipher text :");
 
         affineCipher.addActionListener(new java.awt.event.ActionListener() {
@@ -495,6 +507,12 @@ public class MainPage extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("RSA", jPanel2);
 
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
+
         jLabel3.setText("Enter cipher text :");
 
         autoKeyCipher.addActionListener(new java.awt.event.ActionListener() {
@@ -876,6 +894,18 @@ public class MainPage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_RSAQEncryptActionPerformed
 
+    private void jTabbedPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane3MouseClicked
+
+    }//GEN-LAST:event_jTabbedPane3MouseClicked
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        clearData();
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
+
+    }//GEN-LAST:event_jTabbedPane2MouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -976,4 +1006,29 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     // End of variables declaration//GEN-END:variables
+
+    private void clearData() {
+        affineCipher.setText("");
+        affinePlainText.setText("");
+        affineDecryptResult.setText("");
+        affineEncryptResult.setText("");
+        affineMDecrypt.setText("");
+        affineMEncrypt.setText("");
+        affineKDecrypt.setText("");
+        affineKEncrypt.setText("");
+        RSACipher.setText("");
+        RSAPlainText.setText("");
+        RSADecryptResult.setText("");
+        RSAEncryptResult.setText("");
+        RSAPDecrypt.setText("");
+        RSAPEncrypt.setText("");
+        RSAQDecrypt.setText("");
+        RSAQEncrypt.setText("");
+        autoKeyCipher.setText("");
+        autoKeyPlainText.setText("");
+        autoKeyDecryptResult.setText("");
+        autoKeyEncryptResult.setText("");
+        autoKeyDecryptKey.setText("");
+        autoKeyEncryptKey.setText("");
+    }
 }
