@@ -17,33 +17,28 @@ import static text.encryptor.utilities.Utilities.getIndex;
  */
 public class RSA {
     
-    public static String encrypt(String plainText,int p ,int q){
+   public static String encrypt(String plainText,int p ,int q){
         int z = (p - 1) * (q - 1);
         int n = p * q;
-        int e ; 
-        for (e = 2; e < z; e++) {
-            if (gcd(e, z) == 1) {
-                break;
-            }
-        }
+        int e =Calculate_e(z);
+        plainText=plainText.toUpperCase();
         String c="";
         for(int j = 0 ; j<plainText.length();j++){
             BigInteger N = BigInteger.valueOf(n);
             BigInteger C = BigDecimal.valueOf(getIndex(plainText.charAt(j))).toBigInteger();
             c += getAlphabet((C.pow(e).mod(N)).intValue());
         }
-      return c;
+
+        return c;
     }
-    
+
     public static String decrypt(String cipherText,int p ,int q){
-        int   d = 0, e, i;
+        int  d = 0, i;
         int z = (p - 1) * (q - 1);
         int n = p * q;
-        for (e = 2; e < z; e++) {
-            if (gcd(e, z) == 1) {
-                break;
-            }
-        }
+        int e =Calculate_e(z);
+
+        // d=[(iteration*z)+1]/e until {stop when d became an integer !)
         for (i = 0; i <= 9; i++) {
             int x = 1 + (i * z);
             if (x % e == 0) {
@@ -51,15 +46,15 @@ public class RSA {
                 break;
             }
         }
+
         String plainText = "";
         BigInteger N = BigInteger.valueOf(n);
         for(int j = 0 ; j<cipherText.length();j++){
-               BigInteger C = BigDecimal.valueOf(getIndex(cipherText.charAt(j))).toBigInteger();
-
-               BigInteger msgback = (C.pow(d)).mod(N).mod(BigInteger.valueOf(26));
-               plainText += getAlphabet(msgback.intValue());
+            BigInteger C = BigDecimal.valueOf(getIndex(cipherText.charAt(j))).toBigInteger();
+            BigInteger msgback = C.pow(d).mod(N);
+            plainText += getAlphabet(msgback.intValue());
         }
         return plainText;
-        
+
     }
 }
