@@ -10,7 +10,7 @@ import java.math.BigInteger;
 import static text.encryptor.utilities.Utilities.gcd;
 import static text.encryptor.utilities.Utilities.getAlphabet;
 import static text.encryptor.utilities.Utilities.getIndex;
-
+import static text.encryptor.utilities.Utilities.Calculate_e;
 /**
  *
  * @author maher
