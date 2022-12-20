@@ -15,7 +15,17 @@ public class Utilities {
         else
             return gcd(z % e, e);
     }
-
+public static int Calculate_e(int z)
+    {
+        int e;
+        for (e = 2; e < z; e++) {
+            // e is for public key exponent
+            if (gcd(e, z) == 1) {
+                break;
+            }
+        }
+        return e;
+    }
    public static int getIndex(char alphabet){
         if (alphabet>='A' &&alphabet<='Z'){
             return (alphabet-'A');
