@@ -5,6 +5,9 @@
  */
 package text.encryptor;
 
+import static text.encryptor.utilities.Utilities.getAlphabet;
+import static text.encryptor.utilities.Utilities.getIndex;
+
 /**
  *
  * @author maher
@@ -17,7 +20,7 @@ public class AffineCipher {
             if (msg[i] != ' ')
             {
                 // to int -> operation -> to char
-                cipher = cipher + (char) ((((m * (msg[i] - 'A')) + k) % 26) + 'A');
+                cipher = cipher + getAlphabet (((m * getIndex(msg[i])) + k) % 26);
             }
             else   // skip space
             {
@@ -46,7 +49,7 @@ public class AffineCipher {
         {
             if (cipher.charAt(i) != ' ')  //skip space
             {
-                msg = msg + (char) (((a_inv * ((cipher.charAt(i) + 'A' - k)) % 26)) + 'A');
+                msg = msg + getAlphabet (((a_inv * (getAlphabet(cipher.charAt(i)%26 ) - k)) % 26));
             }
             else
             {
