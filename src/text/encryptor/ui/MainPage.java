@@ -715,26 +715,47 @@ public class MainPage extends javax.swing.JFrame {
     private void autoKeyDecryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoKeyDecryptButtonActionPerformed
          String cipher =autoKeyCipher.getText();
          String key = autoKeyDecryptKey.getText();
-        if(!cipher.isEmpty()&&!key.isEmpty()){
+        if(cipher.isEmpty()||key.isEmpty()){
+            
+            JOptionPane.showMessageDialog(null, "cipher text & key cannot be null");
+            autoKeyDecryptResult.setVisible(false);
+        }else if (checkPunctuaion(key)>0||checkPunctuaion(cipher)>0){
+            JOptionPane.showMessageDialog(null, "sorry text has punctuation");
+            autoKeyDecryptResult.setVisible(false);
+        }else{
             autoKeyDecryptResult.setVisible(true);
             String result = AutoKey.decrypt(cipher,key);
             autoKeyDecryptResult.setText(result);
-        }else{
-            JOptionPane.showMessageDialog(null, "cipher text & key cannot be null");
-            autoKeyDecryptResult.setVisible(false);
         }
     }//GEN-LAST:event_autoKeyDecryptButtonActionPerformed
 
+    private int checkPunctuaion(String str ){
+        //count variable Stores the number of punctuation marks    
+        int count = 0;    
+        for (int i = 0; i < str.length(); i++)   
+        {    
+        //matches each character and Checks whether given character is punctuation mark    
+        if(str.charAt(i) == '!' || str.charAt(i) == ',' || str.charAt(i) == ';' || str.charAt(i) == '.' ||  str.charAt(i) == '?' || str.charAt(i) == '-' ||    
+        str.charAt(i) == '\'' || str.charAt(i) == '\"' || str.charAt(i) == ':')   {    
+                count++;    
+            }    
+        }   
+        return count;
+    }
+    
     private void autoKeyEncryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoKeyEncryptButtonActionPerformed
         String plainText =autoKeyPlainText.getText();
          String key = autoKeyEncryptKey.getText();
-        if(!plainText.isEmpty()&&!key.isEmpty()){
+        if(plainText.isEmpty()||key.isEmpty()){
+            JOptionPane.showMessageDialog(null, "plain text & key cannot be null");
+            autoKeyEncryptResult.setVisible(false);
+        }else if (checkPunctuaion(key)>0||checkPunctuaion(plainText)>0){
+            JOptionPane.showMessageDialog(null, "sorry text has punctuation");
+            autoKeyDecryptResult.setVisible(false);
+        }else{
             autoKeyEncryptResult.setVisible(true);
             String result = AutoKey.encrypt(plainText,key);
             autoKeyEncryptResult.setText(result);
-        }else{
-            JOptionPane.showMessageDialog(null, "plain text & key cannot be null");
-            autoKeyEncryptResult.setVisible(false);
         }    }//GEN-LAST:event_autoKeyEncryptButtonActionPerformed
 
     private void affineCipherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_affineCipherActionPerformed
@@ -788,7 +809,10 @@ public class MainPage extends javax.swing.JFrame {
              }else if(gcd(26,M)!=1){
                     JOptionPane.showMessageDialog(null, "gcd (N,M) != 1");
                     affineEncryptResult.setVisible(false);
-             }else if(!plainText.isEmpty()&&!m.isEmpty()&&!k.isEmpty()){
+             }else if (checkPunctuaion(plainText)>0){
+                    JOptionPane.showMessageDialog(null, "sorry text has punctuation");
+                    autoKeyDecryptResult.setVisible(false);
+            }else if(!plainText.isEmpty()&&!m.isEmpty()&&!k.isEmpty()){
                   affineEncryptResult.setVisible(true);
                   String result = AffineCipher.encrypt(plainText.toUpperCase().toCharArray(),M,K);
                   affineEncryptResult.setText(result);
@@ -879,7 +903,10 @@ public class MainPage extends javax.swing.JFrame {
              if(plainText.isEmpty()||p.isEmpty()||q.isEmpty()){
                     JOptionPane.showMessageDialog(null, "plain text & P & Q cannot be null");
                     RSAEncryptResult.setVisible(false);
-             }else if(!plainText.isEmpty()&&!p.isEmpty()&&!q.isEmpty()){
+             }else if (checkPunctuaion(plainText)>0){
+                    JOptionPane.showMessageDialog(null, "sorry text has punctuation");
+                    autoKeyDecryptResult.setVisible(false);
+            }else if(!plainText.isEmpty()&&!p.isEmpty()&&!q.isEmpty()){
                   RSAEncryptResult.setVisible(true);
                   String result = RSA.encrypt(plainText.toUpperCase(),P,Q);
                   RSAEncryptResult.setText(result);
